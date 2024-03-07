@@ -41,7 +41,7 @@ namespace trektrack_fullstack.Controllers
         [HttpPost]
         public IActionResult Trip(Trip trip)
         {
-            trip.CreateDateTime = DateTime.Now;
+            trip.PublishDateTime = DateTime.Now;
             _tripRepository.Add(trip);
             return CreatedAtAction("Get", new { id = trip.Id }, trip);
 
@@ -49,14 +49,21 @@ namespace trektrack_fullstack.Controllers
 
         // PUT api/<TripController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Trip trip)
         {
+            trip.Id = id;
+            _tripRepository.Update(trip);
+            return NoContent();
         }
 
         // DELETE api/<TripController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+        public IActionResult Delete(int id)
+            {
+            _tripRepository.Delete(id);
+            return NoContent();
+        }
+
         }
     }
-}
+
