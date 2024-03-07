@@ -1,7 +1,10 @@
 ﻿
+using System;
+using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 using trektrack_fullstack.Models;
 using trektrack_fullstack.Utils;
-
+using trektrack_fullstack.Repositories;
 
 namespace trektrack_fullstack.Repositories
 {
@@ -17,17 +20,10 @@ namespace trektrack_fullstack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
-                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.UserStatusId, up.Password,
-                               ut.Name AS UserTypeName, us.Name AS UserStatusName
-                          FROM UserProfile up
-                               LEFT JOIN UserType ut on up.UserTypeId = ut.Id
-                               LEFT JOIN UserStatus us on up.UserStatusId = us.Id
-                         ORDER BY up.DisplayName";
-
-                    // DbUtils.AddParameter(cmd, "@email", email);
-
-                    // UserProfile userProfile = null;
+                         SELECT [Id], [FirstName], [LastName], [UserName], 
+                               [Email], [CreateDateTime], [ImageLocation], [IsAdmin]
+                         FROM [Users]
+                         ORDER BY [UserName]";
 
                     var reader = cmd.ExecuteReader();
 
@@ -39,23 +35,10 @@ namespace trektrack_fullstack.Repositories
                             Id = DbUtils.GetInt(reader, "Id"),
                             FirstName = DbUtils.GetString(reader, "FirstName"),
                             LastName = DbUtils.GetString(reader, "LastName"),
-                            DisplayName = DbUtils.GetString(reader, "DisplayName"),
-                            Email = DbUtils.GetString(reader, "Email"),
-                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            UserName = DbUtils.GetString(reader, "UserName"),
+                            Email = DbUtils.GetString(reader, "Email"),                 
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
-                            UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
-                            UserType = new UserType()
-                            {
-                                Id = DbUtils.GetInt(reader, "UserTypeId"),
-                                Name = DbUtils.GetString(reader, "UserTypeName"),
-                            },
-                            UserStatusId = DbUtils.GetInt(reader, "UserStatusId"),
-                            UserStatus = new UserStatus()
-                            {
-                                Id = DbUtils.GetInt(reader, "UserStatusId"),
-                                Name = DbUtils.GetString(reader, "UserStatusName"),
-                            },
-                            Password = DbUtils.GetNullableString(reader, "Password")
+                            IsAdmin = DbUtils.GetBool(reader, "IsAdmin")
                         });
                     }
                     reader.Close();
@@ -73,18 +56,12 @@ namespace trektrack_fullstack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
-                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.UserStatusId, up.Password,
-                               ut.Name AS UserTypeName, us.Name AS UserStatusName
-                          FROM UserProfile up
-                               LEFT JOIN UserType ut on up.UserTypeId = ut.Id
-                               LEFT JOIN UserStatus us on up.UserStatusId = us.Id
-                          WHERE up.UserStatusId = @id
-                         ORDER BY up.DisplayName";
+                          SELECT [Id], [FirstName], [LastName], [UserName], 
+                               [Email], [ImageLocation], [IsAdmin]
+                         FROM [UserProfile]
+                         ORDER BY [UserName]";
 
                     DbUtils.AddParameter(cmd, "@id", id);
-
-
 
                     var reader = cmd.ExecuteReader();
 
@@ -96,23 +73,10 @@ namespace trektrack_fullstack.Repositories
                             Id = DbUtils.GetInt(reader, "Id"),
                             FirstName = DbUtils.GetString(reader, "FirstName"),
                             LastName = DbUtils.GetString(reader, "LastName"),
-                            DisplayName = DbUtils.GetString(reader, "DisplayName"),
+                            UserName = DbUtils.GetString(reader, "UserName"),
                             Email = DbUtils.GetString(reader, "Email"),
-                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
-                            UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
-                            UserType = new UserType()
-                            {
-                                Id = DbUtils.GetInt(reader, "UserTypeId"),
-                                Name = DbUtils.GetString(reader, "UserTypeName"),
-                            },
-                            UserStatusId = DbUtils.GetInt(reader, "UserStatusId"),
-                            UserStatus = new UserStatus()
-                            {
-                                Id = DbUtils.GetInt(reader, "UserStatusId"),
-                                Name = DbUtils.GetString(reader, "UserStatusName"),
-                            },
-                            Password = DbUtils.GetNullableString(reader, "Password")
+                            IsAdmin = DbUtils.GetBool(reader, "IsAdmin")
                         });
                     }
                     reader.Close();
@@ -130,13 +94,10 @@ namespace trektrack_fullstack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
-                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.UserStatusId, up.Password,
-                               ut.Name AS UserTypeName, us.Name AS UserStatusName
-                          FROM UserProfile up
-                               LEFT JOIN UserType ut on up.UserTypeId = ut.Id
-                               LEFT JOIN UserStatus us on up.UserStatusId = us.Id
-                         WHERE Email = @email";
+                        SELECT [Id], [FirstName], [LastName], [UserName], 
+                               [Email], [ImageLocation], [userPassword]
+                        FROM [Users]
+                        WHERE [Email] = @email";
 
                     DbUtils.AddParameter(cmd, "@email", email);
 
@@ -150,23 +111,10 @@ namespace trektrack_fullstack.Repositories
                             Id = DbUtils.GetInt(reader, "Id"),
                             FirstName = DbUtils.GetString(reader, "FirstName"),
                             LastName = DbUtils.GetString(reader, "LastName"),
-                            DisplayName = DbUtils.GetString(reader, "DisplayName"),
+                            UserName = DbUtils.GetString(reader, "UserName"),
                             Email = DbUtils.GetString(reader, "Email"),
-                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
-                            UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
-                            UserType = new UserType()
-                            {
-                                Id = DbUtils.GetInt(reader, "UserTypeId"),
-                                Name = DbUtils.GetString(reader, "UserTypeName"),
-                            },
-                            UserStatusId = DbUtils.GetInt(reader, "UserStatusId"),
-                            UserStatus = new UserStatus()
-                            {
-                                Id = DbUtils.GetInt(reader, "UserStatusId"),
-                                Name = DbUtils.GetString(reader, "UserStatusName"),
-                            },
-                            Password = DbUtils.GetNullableString(reader, "Password")
+                            UserPassword = DbUtils.GetNullableString(reader, "userPassword")
                         };
                     }
                     reader.Close();
@@ -184,13 +132,10 @@ namespace trektrack_fullstack.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
-                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.UserStatusId, up.Password,
-                               ut.Name AS UserTypeName, us.Name AS UserStatusName
-                          FROM UserProfile up
-                               LEFT JOIN UserType ut on up.UserTypeId = ut.Id
-                               LEFT JOIN UserStatus us on up.UserStatusId = us.Id
-                         WHERE up.Id = @Id";
+                        SELECT [Id], [FirstName], [LastName], [UserName], 
+                               [Email], [ImageLocation], [userPassword]
+                        FROM [UserProfile]
+                        WHERE [Id] = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", Id);
 
@@ -204,23 +149,10 @@ namespace trektrack_fullstack.Repositories
                             Id = DbUtils.GetInt(reader, "Id"),
                             FirstName = DbUtils.GetString(reader, "FirstName"),
                             LastName = DbUtils.GetString(reader, "LastName"),
-                            DisplayName = DbUtils.GetString(reader, "DisplayName"),
-                            Email = DbUtils.GetString(reader, "Email"),
-                            CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                            UserName = DbUtils.GetString(reader, "UserName"),
+                            Email = DbUtils.GetString(reader, "Email"),                          
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
-                            UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
-                            UserType = new UserType()
-                            {
-                                Id = DbUtils.GetInt(reader, "UserTypeId"),
-                                Name = DbUtils.GetString(reader, "UserTypeName"),
-                            },
-                            UserStatusId = DbUtils.GetInt(reader, "UserStatusId"),
-                            UserStatus = new UserStatus()
-                            {
-                                Id = DbUtils.GetInt(reader, "UserStatusId"),
-                                Name = DbUtils.GetString(reader, "UserStatusName"),
-                            },
-                            Password = DbUtils.GetNullableString(reader, "Password")
+                            UserPassword = DbUtils.GetNullableString(reader, "userPassword")
                         };
                     }
                     reader.Close();
@@ -237,42 +169,19 @@ namespace trektrack_fullstack.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO UserProfile (FirstName, LastName, DisplayName, 
-                                                                    Email, CreateDateTime, ImageLocation, UserTypeId, UserStatusId, Password)
+                    cmd.CommandText = @"INSERT INTO [Users] ([FirstName], [LastName], [UserName], 
+                                                                    [Email], [ImageLocation], [userPassword], [IsAdmin])
                                             OUTPUT INSERTED.ID
-                                            VALUES (@FirstName, @LastName, @DisplayName, 
-                                                    @Email, @CreateDateTime, @ImageLocation, @UserTypeId, @UserStatusId, @Password)";
+                                            VALUES (@FirstName, @LastName, @UserName, 
+                                                    @Email,@ImageLocation, @userPassword, @IsAdmin)";
                     DbUtils.AddParameter(cmd, "@FirstName", userProfile.FirstName);
                     DbUtils.AddParameter(cmd, "@LastName", userProfile.LastName);
-                    DbUtils.AddParameter(cmd, "@DisplayName", userProfile.DisplayName);
-                    DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
-                    DbUtils.AddParameter(cmd, "@CreateDateTime", userProfile.CreateDateTime);
+                    DbUtils.AddParameter(cmd, "@UserName", userProfile.UserName);
+                    DbUtils.AddParameter(cmd, "@Email", userProfile.Email); ;
                     DbUtils.AddParameter(cmd, "@ImageLocation", userProfile.ImageLocation);
-                    DbUtils.AddParameter(cmd, "@UserTypeId", userProfile.UserTypeId);
-                    DbUtils.AddParameter(cmd, "@UserStatusId", userProfile.UserStatusId);
-                    DbUtils.AddParameter(cmd, "@Password", DbUtils.ValueOrDBNull(userProfile.Password));
-
+                    DbUtils.AddParameter(cmd, "@IsAdmin", userProfile.IsAdmin);
+                    DbUtils.AddParameter(cmd, "@userPassword", userProfile.UserPassword);
                     userProfile.Id = (int)cmd.ExecuteScalar();
-                }
-            }
-        }
-
-        public void UpdateStatusId(UserProfile user)
-        {
-            using (var conn = Connection)
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                        UPDATE UserProfile
-                           SET UserStatusId = @UserStatusId
-                           WHERE Id = @Id";
-
-                    DbUtils.AddParameter(cmd, "@UserStatusId", user.UserStatusId);
-                    DbUtils.AddParameter(cmd, "@Id", user.Id);
-
-                    cmd.ExecuteNonQuery();
                 }
             }
         }

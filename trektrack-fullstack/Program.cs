@@ -1,4 +1,6 @@
 
+using trektrack_fullstack.Repositories;
+
 namespace trektrack_fullstack
 {
     public class Trektrack
@@ -13,6 +15,10 @@ namespace trektrack_fullstack
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddControllers();
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
+            builder.Services.AddTransient<ITripRepository, TripRepository>();
+
 
             var app = builder.Build();
 
@@ -21,6 +27,12 @@ namespace trektrack_fullstack
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseCors(options =>
+                {
+                    options.AllowAnyOrigin();
+                    options.AllowAnyMethod();
+                    options.AllowAnyHeader();
+                });
             }
 
             app.UseHttpsRedirection();

@@ -23,19 +23,10 @@ namespace trektrack_fullstack.Models
         [MaxLength(255)]
         public string Email { get; set; }
 
-        public DateTime CreateDateTime { get; set; }
-
         [DataType(DataType.Url)]
         [MaxLength(255)]
         public string ImageLocation { get; set; }
-
-        [Required]
-        public int UserTypeId { get; set; }
-        public int UserStatusId { get; set; }
-       // public UserType? UserType { get; set; }
-       // public UserStatus? UserStatus { get; set; }
-
-        public string? Password { get; set; }
+        public string? UserPassword { get; set; }
         public string FullName
         {
             get
@@ -43,5 +34,7 @@ namespace trektrack_fullstack.Models
                 return $"{FirstName} {LastName}";
             }
         }
+
+        public bool IsAdmin { get; set; }
     }
 }

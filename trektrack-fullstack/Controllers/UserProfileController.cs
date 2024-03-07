@@ -58,15 +58,11 @@ namespace TabloidFullStack.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(UserProfile userProfile)    //POST method to SET the UserStatusId IF one isn't set already.
+        public IActionResult Trip(UserProfile userProfile)    //TRIP method to SET the UserStatusId IF one isn't set already.
         {
-            userProfile.CreateDateTime = DateTime.Now;
-            userProfile.UserTypeId = UserType.AUTHOR_ID;
+             
             _userRepository.Add(userProfile);
-            if (userProfile.UserStatusId == 0)
-            {
-                userProfile.UserStatusId = UserStatus.ACTIVE_ID;
-            }
+           
             return CreatedAtAction(
                 "GetByEmail",
                 new { email = userProfile.Email },
@@ -74,7 +70,7 @@ namespace TabloidFullStack.Controllers
         }
 
 
-        [HttpPut("UpdateUserStatus/{id}")]
+      /*  [HttpPut("UpdateUserStatus/{id}")]
         public IActionResult Put(int id, UserProfile user)
         {
             if (id != user.Id)
@@ -84,6 +80,6 @@ namespace TabloidFullStack.Controllers
 
             _userRepository.UpdateStatusId(user);
             return NoContent();
-        }
+        }*/
     }
 }

@@ -1,5 +1,4 @@
 ﻿
-
 using trektrack_fullstack.Models;
 
 
@@ -16,7 +15,8 @@ namespace trektrack_fullstack.Repositories
         List<UserProfile> GetByStatusId(int id);
 
         UserProfile GetById(int Id);
-        void UpdateStatusId(UserProfile userProfile);
-
+      //  void UpdateStatusId(UserProfile userProfile);
+        
     }
+    
 }

@@ -132,5 +132,10 @@ namespace trektrack_fullstack.Utils
         {
             return value ?? DBNull.Value;
         }
+
+        public static bool GetBool(SqlDataReader reader, string column)
+        {
+            return reader.GetBoolean(reader.GetOrdinal(column));
+        }
     }
 }
