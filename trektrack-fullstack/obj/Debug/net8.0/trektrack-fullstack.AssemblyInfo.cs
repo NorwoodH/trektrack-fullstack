@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("trektrack-fullstack")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6ec085692cb9cdc48a9642ed8b990a9177e6375")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b397042f0882658500129d51c7e43610291560f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("trektrack-fullstack")]
 [assembly: System.Reflection.AssemblyTitleAttribute("trektrack-fullstack")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

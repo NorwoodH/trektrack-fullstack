@@ -7,6 +7,7 @@ import { TripForm } from "./Trips/TripForm.js";
 //import UserProfileList from "./UserProfile/UserProfileList";
 import UserProfile from "./UserProfile/UserProfile.js";
 import { TripContainer } from "./Trips/TripContainer.js";
+import { TripEdit } from "./Trips/TripEdit.js";
 
 export default function ApplicationViews({ isLoggedIn }) {
 	const user = JSON.parse(localStorage.getItem("userProfile"));
@@ -16,6 +17,7 @@ export default function ApplicationViews({ isLoggedIn }) {
 			<Route path='/trip' element={<TripContainer />} />
 			<Route path='/trip/:id' element={<TripDetails />} />
 			<Route path='/tripForm/' element={<TripForm />} />
+			<Route path='/trip/edit/:id' element={<TripEdit />} />
 
 			{user && user.userTypeId == 1 ? (
 				<>
