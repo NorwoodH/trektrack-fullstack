@@ -13,6 +13,9 @@ export const Trip = ({ trip }) => {
     formattedDate = `${month}/${day}/${year}`;
   }
 
+
+  
+
   return (
     <Card className="m-4" style={{ width: "40rem" }}>
       <CardHeader className="d-flex justify-content-between">
@@ -50,6 +53,7 @@ export const Trip = ({ trip }) => {
         >
           Edit Trip
         </Button>
+        
       )}
     </Card>
   );

@@ -15,7 +15,22 @@ export const addTrip = (singleTrip) => {
     body: JSON.stringify(singleTrip),
   });
 };
+export const editTrip = (singleTrip) => { 
+  return fetch(`${baseUrl}/${singleTrip.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(singleTrip),
+  });
+};
 
 export const getTrip = (id) => {
-    return fetch(`/api/trip/${id}`).then((res) => res.json());
+    return fetch(`${baseUrl}/${id}`).then((res) => res.json());
+};
+
+export const deleteTrip = (id) => {
+    return fetch(`${baseUrl}/${id}`, {
+      method: "DELETE",
+    });
 };
