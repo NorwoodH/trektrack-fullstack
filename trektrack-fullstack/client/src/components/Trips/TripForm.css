@@ -1,0 +1,15 @@
+.trip-form-header {
+    text-shadow: 2px 2px 4px rgb(3, 73, 78);
+    color:aliceblue;
+    outline-color: rgb(229, 7, 7);
+  }
+.date-form-input {
+    max-width: 33vw;
+    width: auto
+  }
+.details-form-input {
+    max-width: 40vw;
+    min-width: 25vw;
+    
+  }
+

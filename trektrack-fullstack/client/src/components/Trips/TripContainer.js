@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { TripList } from "./TripList";
 import Trektrack from "../Trektrack"
 import { getAllTrips } from "../../Managers/TripManager";
+import "./TripContainer.css"
+
 
 export const TripContainer = () => {
 	const [trips, setTrips] = useState([]);
@@ -30,7 +32,7 @@ export const TripContainer = () => {
 	else {
 		return (
 			<Container>
-				<h2>All Trips</h2>
+				<h2 className="trip-list-header">All Trips</h2>
 				<TripList trips={trips} />
 			</Container>
 		);
