@@ -3,6 +3,7 @@ import { getUserTrips } from "../../Managers/TripManager";
 import { Card, CardBody, CardImg, CardText, CardTitle, Col, Container, Row } from "reactstrap";
 import { Trip } from "./Trip";
 
+
 export const UserTrips = () => {
     const [userTrips, setUserTrips] = useState([]);
 
